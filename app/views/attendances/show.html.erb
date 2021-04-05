@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @attendance.status %>
+</p>
+
+<p>
+  <strong>Datetime of presence:</strong>
+  <%= @attendance.datetime_of_presence %>
+</p>
+
+<p>
+  <strong>Present:</strong>
+  <%= @attendance.present %>
+</p>
+
+<p>
+  <strong>Body temperature:</strong>
+  <%= @attendance.body_temperature %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @attendance.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>
