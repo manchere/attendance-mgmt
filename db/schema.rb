@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_091449) do
+ActiveRecord::Schema.define(version: 2021_04_06_185756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_091449) do
 
   create_table "attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "status"
-    t.string "datetime_of_presence"
+    t.datetime "datetime_of_presence"
     t.boolean "present"
     t.float "body_temperature"
     t.uuid "user_id"
