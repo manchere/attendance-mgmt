@@ -24,6 +24,7 @@ class Attendance < ApplicationRecord
     validates :datetime_of_presence, presence: true
 
     # scopes
+    scope :for_id, -> (id) { where(user_id: id) }
     scope :body_temp_above, -> (temp) { where('body_temperature > ?', temp) }
     scope :past_week, -> { where(datetime_of_presence: Time.zone.now.at_beginning_of_week...Time.zone.now.at_end_of_week ) }
     scope :punctual, -> { where(status: 'Punctual') }

@@ -1,25 +1,14 @@
 class AttendancesController < ApplicationController
   before_action :set_attendance, only: %i[ show edit update destroy ]
 
-  # GET /attendances or /attendances.json
   def index
     @attendances = Attendance.all
   end
-
-  # GET /attendances/1 or /attendances/1.json
-  def show
-  end
-
-  # GET /attendances/new
+  
   def new
     @attendance = Attendance.new
   end
 
-  # GET /attendances/1/edit
-  def edit
-  end
-
-  # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
     
@@ -38,12 +27,10 @@ class AttendancesController < ApplicationController
         end
       end
     else
-      redirect_to new_user_path
-      flash[:notice]
+      redirect_to new_user_url, notice: "User not found, please register before checking in."
     end
   end
 
-  # DELETE /attendances/1 or /attendances/1.json
   def destroy
     @attendance.destroy
     respond_to do |format|
@@ -67,3 +54,4 @@ class AttendancesController < ApplicationController
       @user = User.find_by(phone_number: params[:phone_number])
     end
 end
+
