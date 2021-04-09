@@ -1,25 +1,26 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ edit update destroy ]
 
-  # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.search(params[:search])
+    @attend = Attendance.last_temperature(@user)
   end
 
-  # GET /users/1 or /users/1.json
   def show
+    @user = User.friendly.find(params[:id])
   end
 
-  # GET /users/new
+  def user_attendances
+    @user = User.attendance_of(params[:id])
+  end
+
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
-  # POST /users or /users.json
   def create
     @user = User.new(user_params)
 
@@ -34,7 +35,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -47,7 +47,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
     respond_to do |format|
@@ -56,14 +55,17 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def search
+   
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone_number, :address)
-    end
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :phone_number, :address)
+  end
 end
