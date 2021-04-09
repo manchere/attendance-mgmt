@@ -1,5 +1,9 @@
-<h1>New Attendance</h1>
-
-<%= render 'form', attendance: @attendance %>
-
-<%= link_to 'Back', attendances_path %>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <main class="px-3 mt-5">
+    <h1>Hi There!</h1>
+    <p class="lead">Please provide your phone number and temperature to check in:</p>
+    <span class="text-danger"> <%= flash[:notice] %></span>
+    <%= render partial: 'form' %>
+  </p>
+</main>
+</div>
