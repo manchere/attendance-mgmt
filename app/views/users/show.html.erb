@@ -1,24 +1,124 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
-
-<p>
-  <strong>Phone number:</strong>
-  <%= @user.phone_number %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="container">
+  <div class="panel-body inf-content bg-white">
+    <div class="row">
+      <div class="col-md-4">
+        <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+        <ul title="Ratings" class="list-inline ratings text-center">
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <strong class="text-dark">Information</strong><br>
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-asterisk text-dark"></span>
+                    Identification:                                            
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.sluggish_id %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-user  text-dark"></span>
+                    Firstname:                                               
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.first_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-cloud text-dark"></span>
+                    Lastname:                                            
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.last_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-bookmark text-dark"></span>
+                    Temperature:                                               
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.attendances.last.body_temperature %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-eye-open text-dark"></span>
+                    Address:                                           
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.address %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-envelope text-dark"></span>
+                    Contact:                                               
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.phone_number %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-calendar text-dark"></span>
+                    Registered on:                                          
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.created_at.strftime('%d-%m-%Y %H:%M:%S') %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-calendar text-dark"></span>
+                    Last update:                                      
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.updated_at.strftime('%d-%m-%Y %H:%M:%S') %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span class="glyphicon glyphicon-calendar text-dark"></span>
+                    Last Check In:                                          
+                  </strong>
+                </td>
+                <td class="text-dark">
+                  <%= @user.attendances.last.datetime_of_presence.strftime('%d-%m-%Y %H:%M:%S') %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="my-4">
+  <%= link_to 'Check In', root_path %> |
+  <%= link_to 'Back', users_path %> |
+  <%= link_to 'Edit profile', edit_user_path(@user) %>
+</div>

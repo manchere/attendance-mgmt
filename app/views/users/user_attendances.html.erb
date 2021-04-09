@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<table class="table table-striped bg-light">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Status</th>
+      <th>Datetime of presence</th>
+      <th>Present</th>
+      <th>Body temperature</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.each do |attendance| %>
+      <tr>
+        <td><%= attendance.user.full_name %></td>
+        <td><%= attendance.status %></td>
+        <td><%= attendance.datetime_of_presence.strftime('%d-%m-%Y %H:%M:%S') %></td>
+        <td><%= attendance.present %></td>
+        <td><%= attendance.body_temperature %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
