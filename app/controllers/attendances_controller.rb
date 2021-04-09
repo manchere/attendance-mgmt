@@ -22,28 +22,24 @@ class AttendancesController < ApplicationController
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
-
-    respond_to do |format|
-      if @attendance.save
-        format.html { redirect_to @attendance, notice: "Attendance was successfully created." }
-        format.json { render :show, status: :created, location: @attendance }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
+    
+    if get_user
+        @attendance.user_id = get_user.id
+        @attendance.present = true
+        @attendance.status
+        @attendance.datetime_of_presence = DateTime.now
+      respond_to do |format|
+        if @attendance.save
+          format.html { redirect_to @attendance, notice: "You have successfully checked in." }
+          format.json { render :show, status: :created, location: @attendance }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @attendance.errors, status: :unprocessable_entity }
+        end
       end
-    end
-  end
-
-  # PATCH/PUT /attendances/1 or /attendances/1.json
-  def update
-    respond_to do |format|
-      if @attendance.update(attendance_params)
-        format.html { redirect_to @attendance, notice: "Attendance was successfully updated." }
-        format.json { render :show, status: :ok, location: @attendance }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
-      end
+    else
+      redirect_to new_user_path
+      flash[:notice]
     end
   end
 
@@ -64,6 +60,10 @@ class AttendancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def attendance_params
-      params.require(:attendance).permit(:status, :datetime_of_presence, :present, :body_temperature, :user_id)
+      params.require(:attendance).permit(:present, :body_temperature, :user_id)
+    end
+
+    def get_user
+      @user = User.find_by(phone_number: params[:phone_number])
     end
 end
