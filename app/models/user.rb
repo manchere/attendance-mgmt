@@ -39,6 +39,7 @@ class User < ApplicationRecord
     scope :is_punctual, -> { joins(:attendances).merge(Attendance.punctual) }
     scope :latest_check_in, -> { joins(:attendances).order(datetime_of_presence: :desc) }
     scope :retrieve, -> (search) { User.where('first_name LIKE ? OR last_name LIKE ? OR phone_number = ?', "%#{search}%", "%#{search}%", search) }
+    scope :attendance_of, -> (id) { latest_check_in.where('attendances.user_id = ?', id) }
 
     def full_name
       "#{first_name} #{last_name}"
